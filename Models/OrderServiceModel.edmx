@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="OrderServiceModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
+        <EntityContainer Name="OrderServiceModelTargetContainer" >
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="OrderServiceModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="OrderServiceModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="OrdersSet" EntityType="OrderServiceModel.Orders" />
+          <EntitySet Name="EmployeesSet" EntityType="OrderServiceModel.Employees" />
+          <EntitySet Name="ProductsSet" EntityType="OrderServiceModel.Products" />
+          <EntitySet Name="SuppliesSet" EntityType="OrderServiceModel.Supplies" />
+          <EntitySet Name="SuppliersSet" EntityType="OrderServiceModel.Suppliers" />
+          <AssociationSet Name="SuppliersSupplies" Association="OrderServiceModel.SuppliersSupplies">
+            <End Role="Suppliers" EntitySet="SuppliersSet" />
+            <End Role="Supplies" EntitySet="SuppliesSet" />
+          </AssociationSet>
+          <AssociationSet Name="OrdersEmployees" Association="OrderServiceModel.OrdersEmployees">
+            <End Role="Orders" EntitySet="OrdersSet" />
+            <End Role="Employees" EntitySet="EmployeesSet" />
+          </AssociationSet>
+          <AssociationSet Name="ProductsSupplies" Association="OrderServiceModel.ProductsSupplies">
+            <End Role="Products" EntitySet="ProductsSet" />
+            <End Role="Supplies" EntitySet="SuppliesSet" />
+          </AssociationSet>
+          <AssociationSet Name="OrdersProducts" Association="OrderServiceModel.OrdersProducts">
+            <End Role="Orders" EntitySet="OrdersSet" />
+            <End Role="Products" EntitySet="ProductsSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreatedDate" Type="String" Nullable="false" />
+          <Property Name="DoneDate" Type="String" Nullable="false" />
+          <Property Name="ClientID" Type="String" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="OrderServiceModel.OrdersEmployees" FromRole="Orders" ToRole="Employees" />
+          <NavigationProperty Name="Products" Relationship="OrderServiceModel.OrdersProducts" FromRole="Orders" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Appointment" Type="String" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" />
+          <Property Name="Subordinates" Type="String" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="OrderServiceModel.OrdersEmployees" FromRole="Employees" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="Type" Type="String" Nullable="false" />
+          <Property Name="Weight" Type="String" Nullable="false" />
+          <Property Name="ExpirationDate" Type="String" Nullable="false" />
+          <Property Name="StorageTemperature" Type="String" Nullable="false" />
+          <Property Name="Price" Type="String" Nullable="false" />
+          <NavigationProperty Name="Supplies" Relationship="OrderServiceModel.ProductsSupplies" FromRole="Products" ToRole="Supplies" />
+          <NavigationProperty Name="Orders" Relationship="OrderServiceModel.OrdersProducts" FromRole="Products" ToRole="Orders" />
+          <Property Name="OrdersId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Supplies">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Suppliers" Relationship="OrderServiceModel.SuppliersSupplies" FromRole="Supplies" ToRole="Suppliers" />
+          <Property Name="SuppliersId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="OrderServiceModel.ProductsSupplies" FromRole="Supplies" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Suppliers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Manager" Type="String" Nullable="false" />
+          <Property Name="TradePrice" Type="String" Nullable="false" />
+          <Property Name="RetailPrice" Type="String" Nullable="false" />
+          <Property Name="Discount" Type="String" Nullable="false" />
+          <Property Name="Available" Type="String" Nullable="false" />
+          <Property Name="Specials" Type="String" Nullable="false" />
+          <NavigationProperty Name="Supplies" Relationship="OrderServiceModel.SuppliersSupplies" FromRole="Suppliers" ToRole="Supplies" />
+        </EntityType>
+        <Association Name="SuppliersSupplies">
+          <End Type="OrderServiceModel.Suppliers" Role="Suppliers" Multiplicity="1" />
+          <End Type="OrderServiceModel.Supplies" Role="Supplies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Supplies">
+              <PropertyRef Name="SuppliersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="OrdersEmployees">
+          <End Type="OrderServiceModel.Orders" Role="Orders" Multiplicity="1" />
+          <End Type="OrderServiceModel.Employees" Role="Employees" Multiplicity="1" />
+        </Association>
+        <Association Name="ProductsSupplies">
+          <End Type="OrderServiceModel.Products" Role="Products" Multiplicity="1" />
+          <End Type="OrderServiceModel.Supplies" Role="Supplies" Multiplicity="*" />
+        </Association>
+        <Association Name="OrdersProducts">
+          <End Type="OrderServiceModel.Orders" Role="Orders" Multiplicity="1" />
+          <End Type="OrderServiceModel.Products" Role="Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="OrdersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="OrderServiceModel" />
+        <Alias Key="Target" Value="OrderServiceModel.Store" />
+        <EntityContainerMapping CdmEntityContainer="OrderServiceModelContainer" StorageEntityContainer="OrderServiceModelTargetContainer">
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
