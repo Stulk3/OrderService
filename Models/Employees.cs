@@ -19,7 +19,5 @@ namespace OrderService.Models
         public string Appointment { get; set; }
         public string PhoneNumber { get; set; }
         public string Subordinates { get; set; }
-    
-        public virtual Orders Orders { get; set; }
     }
 }

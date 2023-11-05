@@ -13,10 +13,10 @@ namespace OrderService.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class OrderServiceModelContainer : DbContext
+    public partial class OrderServiceDataEntities : DbContext
     {
-        public OrderServiceModelContainer()
-            : base("name=OrderServiceModelContainer")
+        public OrderServiceDataEntities()
+            : base("name=OrderServiceDataEntities")
         {
         }
     
@@ -25,10 +25,10 @@ namespace OrderService.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Orders> OrdersSet { get; set; }
-        public virtual DbSet<Products> ProductsSet { get; set; }
-        public virtual DbSet<Employees> EmployeesSet { get; set; }
-        public virtual DbSet<Suppliers> SuppliersSet { get; set; }
-        public virtual DbSet<Supplies> SuppliesSet { get; set; }
+        public virtual DbSet<Employees> Employees { get; set; }
+        public virtual DbSet<Orders> Orders { get; set; }
+        public virtual DbSet<Products> Products { get; set; }
+        public virtual DbSet<Suppliers> Suppliers { get; set; }
+        public virtual DbSet<Supplies> Supplies { get; set; }
     }
 }

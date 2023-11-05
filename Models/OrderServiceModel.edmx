@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="OrderServiceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище OrderServiceDataModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Employees">
           <Key>
             <PropertyRef Name="Id" />
@@ -19,7 +19,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="PlacementDate" Type="date" Nullable="false" />
           <Property Name="DoneDate" Type="date" />
           <Property Name="ClientCode" Type="nchar" MaxLength="10" />
@@ -28,7 +28,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="Type" Type="nvarchar" MaxLength="50" />
@@ -58,67 +58,18 @@
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Date" Type="nchar" MaxLength="10" />
         </EntityType>
-        <EntityContainer Name="OrderServiceModelStoreContainer">
+        <EntityContainer Name="Хранилище OrderServiceDataModelContainer">
           <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supplies" EntityType="Self.Supplies" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="OrderServiceModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
-        <EntityContainer Name="OrderServiceModelContainer" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="OrdersSet" EntityType="OrderServiceModel.Orders" />
-          <EntitySet Name="ProductsSet" EntityType="OrderServiceModel.Products" />
-          <EntitySet Name="EmployeesSet" EntityType="OrderServiceModel.Employees" />
-          <EntitySet Name="SuppliersSet" EntityType="OrderServiceModel.Suppliers" />
-          <EntitySet Name="SuppliesSet" EntityType="OrderServiceModel.Supplies" />
-          <AssociationSet Name="OrdersProducts" Association="OrderServiceModel.OrdersProducts">
-            <End Role="Orders" EntitySet="OrdersSet" />
-            <End Role="Products" EntitySet="ProductsSet" />
-          </AssociationSet>
-          <AssociationSet Name="OrdersEmployees" Association="OrderServiceModel.OrdersEmployees">
-            <End Role="Orders" EntitySet="OrdersSet" />
-            <End Role="Employees" EntitySet="EmployeesSet" />
-          </AssociationSet>
-          <AssociationSet Name="ProductsSupplies" Association="OrderServiceModel.ProductsSupplies">
-            <End Role="Products" EntitySet="ProductsSet" />
-            <End Role="Supplies" EntitySet="SuppliesSet" />
-          </AssociationSet>
-          <AssociationSet Name="SuppliersSupplies" Association="OrderServiceModel.SuppliersSupplies">
-            <End Role="Suppliers" EntitySet="SuppliersSet" />
-            <End Role="Supplies" EntitySet="SuppliesSet" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="Orders">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CreatedDate" Type="String" Nullable="false" />
-          <Property Name="DoneDate" Type="String" Nullable="false" />
-          <Property Name="ClientID" Type="String" Nullable="false" />
-          <NavigationProperty Name="Products" Relationship="OrderServiceModel.OrdersProducts" FromRole="Orders" ToRole="Products" />
-          <NavigationProperty Name="Employees" Relationship="OrderServiceModel.OrdersEmployees" FromRole="Orders" ToRole="Employees" />
-        </EntityType>
-        <EntityType Name="Products">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" Unicode="true" FixedLength="false" MaxLength="50" />
-          <Property Name="Description" Type="String" Unicode="true" FixedLength="false" MaxLength="Max" />
-          <Property Name="Type" Type="String" Unicode="true" FixedLength="false" MaxLength="50" />
-          <Property Name="Weight" Type="String" />
-          <Property Name="ExpirationDate" Type="String" Unicode="true" FixedLength="false" MaxLength="50" />
-          <Property Name="StorageTemperature" Type="String" />
-          <Property Name="Price" Type="String" />
-          <Property Name="OrdersId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Orders" Relationship="OrderServiceModel.OrdersProducts" FromRole="Products" ToRole="Orders" />
-          <NavigationProperty Name="Supplies" Relationship="OrderServiceModel.ProductsSupplies" FromRole="Products" ToRole="Supplies" />
-        </EntityType>
+      <Schema Namespace="OrderServiceDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Employees">
           <Key>
             <PropertyRef Name="Id" />
@@ -128,7 +79,28 @@
           <Property Name="Appointment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Subordinates" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Orders" Relationship="OrderServiceModel.OrdersEmployees" FromRole="Employees" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="PlacementDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DoneDate" Type="DateTime" Precision="0" />
+          <Property Name="ClientCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Weight" Type="Double" />
+          <Property Name="ExpirationDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StorageTemperature" Type="Double" />
+          <Property Name="Price" Type="Double" />
         </EntityType>
         <EntityType Name="Suppliers">
           <Key>
@@ -143,7 +115,6 @@
           <Property Name="Discount" Type="Double" />
           <Property Name="Available" Type="Double" />
           <Property Name="Specials" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Supplies" Relationship="OrderServiceModel.SuppliersSupplies" FromRole="Suppliers" ToRole="Supplies" />
         </EntityType>
         <EntityType Name="Supplies">
           <Key>
@@ -151,128 +122,99 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Date" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Products" Relationship="OrderServiceModel.ProductsSupplies" FromRole="Supplies" ToRole="Products" />
-          <Property Name="ProductsId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Suppliers" Relationship="OrderServiceModel.SuppliersSupplies" FromRole="Supplies" ToRole="Suppliers" />
-          <Property Name="SuppliersId" Type="Int32" Nullable="false" />
         </EntityType>
-        <Association Name="OrdersProducts">
-          <End Type="OrderServiceModel.Orders" Role="Orders" Multiplicity="1" />
-          <End Type="OrderServiceModel.Products" Role="Products" Multiplicity="1" />
-        </Association>
-        <Association Name="OrdersEmployees">
-          <End Type="OrderServiceModel.Orders" Role="Orders" Multiplicity="1" />
-          <End Type="OrderServiceModel.Employees" Role="Employees" Multiplicity="1" />
-        </Association>
-        <Association Name="ProductsSupplies">
-          <End Type="OrderServiceModel.Products" Role="Products" Multiplicity="1" />
-          <End Type="OrderServiceModel.Supplies" Role="Supplies" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Supplies">
-              <PropertyRef Name="ProductsId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="SuppliersSupplies">
-          <End Type="OrderServiceModel.Suppliers" Role="Suppliers" Multiplicity="1" />
-          <End Type="OrderServiceModel.Supplies" Role="Supplies" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Suppliers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Supplies">
-              <PropertyRef Name="SuppliersId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <EntityContainer Name="OrderServiceDataEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Employees" EntityType="Self.Employees" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" />
+          <EntitySet Name="Products" EntityType="Self.Products" />
+          <EntitySet Name="Suppliers" EntityType="Self.Suppliers" />
+          <EntitySet Name="Supplies" EntityType="Self.Supplies" />
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="OrderServiceModelStoreContainer" CdmEntityContainer="OrderServiceModelContainer">
-          <EntitySetMapping Name="ProductsSet">
-            <EntityTypeMapping TypeName="IsTypeOf(OrderServiceModel.Products)">
-              <MappingFragment StoreEntitySet="Products">
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="StorageTemperature" ColumnName="StorageTemperature" />
-                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
-                <ScalarProperty Name="Weight" ColumnName="Weight" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="EmployeesSet">
-            <EntityTypeMapping TypeName="OrderServiceModel.Employees">
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище OrderServiceDataModelContainer" CdmEntityContainer="OrderServiceDataEntities">
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="OrderServiceDataModel.Employees">
               <MappingFragment StoreEntitySet="Employees">
-                <ScalarProperty Name="Subordinates" ColumnName="Subordinates" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="Appointment" ColumnName="Appointment" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SuppliersSet">
-            <EntityTypeMapping TypeName="OrderServiceModel.Suppliers">
-              <MappingFragment StoreEntitySet="Suppliers">
-                <ScalarProperty Name="Specials" ColumnName="Specials" />
-                <ScalarProperty Name="Available" ColumnName="Available" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="RetailPrice" ColumnName="RetailPrice" />
-                <ScalarProperty Name="TradePrice" ColumnName="TradePrice" />
+                <ScalarProperty Name="Appointment" ColumnName="Appointment" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="Manager" ColumnName="Manager" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Subordinates" ColumnName="Subordinates" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SuppliesSet">
-            <EntityTypeMapping TypeName="OrderServiceModel.Supplies">
-              <MappingFragment StoreEntitySet="Supplies">
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OrdersSet">
-            <EntityTypeMapping TypeName="IsTypeOf(OrderServiceModel.Orders)">
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="OrderServiceDataModel.Orders">
               <MappingFragment StoreEntitySet="Orders">
-                <ScalarProperty Name="ClientID" ColumnName="ClientCode" />
-                <ScalarProperty Name="CreatedDate" ColumnName="PlacementDate" />
-                <ScalarProperty Name="DoneDate" ColumnName="DoneDate" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PlacementDate" ColumnName="PlacementDate" />
+                <ScalarProperty Name="DoneDate" ColumnName="DoneDate" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="OrderServiceDataModel.Products">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="StorageTemperature" ColumnName="StorageTemperature" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="OrderServiceDataModel.Suppliers">
+              <MappingFragment StoreEntitySet="Suppliers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Manager" ColumnName="Manager" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="TradePrice" ColumnName="TradePrice" />
+                <ScalarProperty Name="RetailPrice" ColumnName="RetailPrice" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Available" ColumnName="Available" />
+                <ScalarProperty Name="Specials" ColumnName="Specials" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supplies">
+            <EntityTypeMapping TypeName="OrderServiceDataModel.Supplies">
+              <MappingFragment StoreEntitySet="Supplies">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
         </EntityContainerMapping>
-</Mapping></edmx:Mappings>
+      </Mapping>
+    </edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
-  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
-    <edmx:Connection>
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
       </DesignerInfoPropertySet>
-    </edmx:Connection>
-    <edmx:Options>
+    </Connection>
+    <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
-        <DesignerProperty Name="UseLegacyProvider" Value="False" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
       </DesignerInfoPropertySet>
-    </edmx:Options>
+    </Options>
     <!-- Diagram content (shape and connector positions) -->
-    <edmx:Diagrams>
-    </edmx:Diagrams>
-  </edmx:Designer>
+    <Diagrams></Diagrams>
+  </Designer>
 </edmx:Edmx>
