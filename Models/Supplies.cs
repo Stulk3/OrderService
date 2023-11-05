@@ -16,5 +16,10 @@ namespace OrderService.Models
     {
         public int Id { get; set; }
         public string Date { get; set; }
+        public int ProductsId { get; set; }
+        public int SuppliersId { get; set; }
+    
+        public virtual Products Products { get; set; }
+        public virtual Suppliers Suppliers { get; set; }
     }
 }

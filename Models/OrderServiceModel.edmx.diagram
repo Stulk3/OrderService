@@ -10,6 +10,10 @@
         <EntityTypeShape EntityType="OrderServiceDataModel.Products" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="OrderServiceDataModel.Suppliers" Width="1.5" PointX="5.625" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="OrderServiceDataModel.Supplies" Width="1.5" PointX="5.875" PointY="4.25" IsExpanded="true" />
+        <AssociationConnector Association="OrderServiceDataModel.OrdersProducts" />
+        <AssociationConnector Association="OrderServiceDataModel.OrdersEmployees" />
+        <AssociationConnector Association="OrderServiceDataModel.ProductsSupplies" />
+        <AssociationConnector Association="OrderServiceDataModel.SuppliersSupplies" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

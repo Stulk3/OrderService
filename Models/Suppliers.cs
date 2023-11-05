@@ -14,6 +14,12 @@ namespace OrderService.Models
     
     public partial class Suppliers
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Suppliers()
+        {
+            this.Supplies = new HashSet<Supplies>();
+        }
+    
         public int Id { get; set; }
         public string Title { get; set; }
         public string Manager { get; set; }
@@ -23,5 +29,8 @@ namespace OrderService.Models
         public Nullable<double> Discount { get; set; }
         public Nullable<double> Available { get; set; }
         public string Specials { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Supplies> Supplies { get; set; }
     }
 }
