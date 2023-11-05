@@ -30,8 +30,8 @@ namespace OrderService.Models
         public string Price { get; set; }
         public int OrdersId { get; set; }
     
+        public virtual Orders Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Supplies> Supplies { get; set; }
-        public virtual Orders Orders { get; set; }
     }
 }

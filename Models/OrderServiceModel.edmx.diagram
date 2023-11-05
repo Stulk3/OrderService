@@ -4,16 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8bf1f8c89d1d479fb1f5cee98067085c" Name="Diagram1" >
+      <Diagram DiagramId="8bf1f8c89d1d479fb1f5cee98067085c" Name="Diagram1" ZoomLevel="63" >
         <EntityTypeShape EntityType="OrderServiceModel.Orders" Width="1.5" PointX="2.375" PointY="1.375" />
-        <EntityTypeShape EntityType="OrderServiceModel.Employees" Width="1.5" PointX="5.875" PointY="1.25" />
-        <EntityTypeShape EntityType="OrderServiceModel.Products" Width="1.5" PointX="5.875" PointY="4" />
-        <EntityTypeShape EntityType="OrderServiceModel.Supplies" Width="1.5" PointX="10.25" PointY="3.75" />
-        <EntityTypeShape EntityType="OrderServiceModel.Suppliers" Width="1.5" PointX="8.375" PointY="1.125" />
-        <AssociationConnector Association="OrderServiceModel.SuppliersSupplies" />
+        <EntityTypeShape EntityType="OrderServiceModel.Products" Width="1.5" PointX="6.5" PointY="4.875" />
+        <EntityTypeShape EntityType="OrderServiceModel.Employees" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="OrderServiceModel.Suppliers" Width="1.5" PointX="9.25" PointY="0.625" />
+        <EntityTypeShape EntityType="OrderServiceModel.Supplies" Width="1.5" PointX="10.625" PointY="4.625" />
+        <AssociationConnector Association="OrderServiceModel.OrdersProducts" />
         <AssociationConnector Association="OrderServiceModel.OrdersEmployees" />
         <AssociationConnector Association="OrderServiceModel.ProductsSupplies" />
-        <AssociationConnector Association="OrderServiceModel.OrdersProducts" />
+        <AssociationConnector Association="OrderServiceModel.SuppliersSupplies" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

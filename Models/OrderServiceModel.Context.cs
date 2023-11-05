@@ -26,9 +26,9 @@ namespace OrderService.Models
         }
     
         public virtual DbSet<Orders> OrdersSet { get; set; }
-        public virtual DbSet<Employees> EmployeesSet { get; set; }
         public virtual DbSet<Products> ProductsSet { get; set; }
-        public virtual DbSet<Supplies> SuppliesSet { get; set; }
+        public virtual DbSet<Employees> EmployeesSet { get; set; }
         public virtual DbSet<Suppliers> SuppliersSet { get; set; }
+        public virtual DbSet<Supplies> SuppliesSet { get; set; }
     }
 }

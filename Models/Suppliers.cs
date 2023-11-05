@@ -21,12 +21,13 @@ namespace OrderService.Models
         }
     
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Title { get; set; }
         public string Manager { get; set; }
-        public string TradePrice { get; set; }
-        public string RetailPrice { get; set; }
-        public string Discount { get; set; }
-        public string Available { get; set; }
+        public string PhoneNumber { get; set; }
+        public Nullable<double> TradePrice { get; set; }
+        public Nullable<double> RetailPrice { get; set; }
+        public Nullable<double> Discount { get; set; }
+        public Nullable<double> Available { get; set; }
         public string Specials { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
