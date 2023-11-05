@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/04/2023 16:49:38
+-- Date Created: 11/05/2023 03:45:15
 -- Generated from EDMX file: C:\AppDev\OrderService\OrderService\Models\OrderServiceModel.edmx
 -- --------------------------------------------------
 
@@ -17,11 +17,38 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_SuppliersSupplies]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SuppliesSet] DROP CONSTRAINT [FK_SuppliersSupplies];
+GO
+IF OBJECT_ID(N'[dbo].[FK_OrdersEmployees]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[OrdersSet] DROP CONSTRAINT [FK_OrdersEmployees];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ProductsSupplies]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SuppliesSet] DROP CONSTRAINT [FK_ProductsSupplies];
+GO
+IF OBJECT_ID(N'[dbo].[FK_OrdersProducts]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ProductsSet] DROP CONSTRAINT [FK_OrdersProducts];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[OrdersSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[OrdersSet];
+GO
+IF OBJECT_ID(N'[dbo].[EmployeesSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[EmployeesSet];
+GO
+IF OBJECT_ID(N'[dbo].[ProductsSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ProductsSet];
+GO
+IF OBJECT_ID(N'[dbo].[SuppliesSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SuppliesSet];
+GO
+IF OBJECT_ID(N'[dbo].[SuppliersSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SuppliersSet];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
