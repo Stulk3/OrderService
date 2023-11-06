@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<OrderService.Models.Products>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Products";
 }
 
-<h2>Index</h2>
+<h2>Products</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -32,12 +32,12 @@
         <th>
             @Html.DisplayNameFor(model => model.Price)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Supplies.Id)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Suppliers.Title)
-        </th>
+        </th>*@
         <th></th>
     </tr>
 
