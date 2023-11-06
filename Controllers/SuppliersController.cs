@@ -14,11 +14,33 @@ namespace OrderService.Controllers
     {
         private OrderServiceData db = new OrderServiceData();
 
+
+
         // GET: Suppliers
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
-            return View(db.Suppliers.ToList());
+            ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.IndicatorsSortParm = sortOrder == "Title" ? "TradePrice" : "RetailPrice";
+            var suppliers = from s in db.Suppliers
+                           select s;
+            switch (sortOrder)
+            {
+                case "Title":
+                    suppliers = suppliers.OrderByDescending(s => s.Title);
+                    break;
+                case "TradePrice":
+                    suppliers = suppliers.OrderBy(s => s.TradePrice);
+                    break;
+                case "RetailPrice":
+                    suppliers = suppliers.OrderByDescending(s => s.RetailPrice);
+                    break;
+                default:
+                    suppliers = suppliers.OrderBy(s => s.Title);
+                    break;
+            }
+            return View(suppliers.ToList());
         }
+
 
         // GET: Suppliers/Details/5
         public ActionResult Details(int? id)
