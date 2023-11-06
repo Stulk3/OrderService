@@ -4,16 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0073827af8de4315afc025885f2eade9" Name="Diagram1">
-        <EntityTypeShape EntityType="OrderServiceDataModel.Employees" Width="1.5" PointX="3.125" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderServiceDataModel.Orders" Width="1.5" PointX="0.5" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderServiceDataModel.Products" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderServiceDataModel.Suppliers" Width="1.5" PointX="5.625" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderServiceDataModel.Supplies" Width="1.5" PointX="5.875" PointY="4.25" IsExpanded="true" />
-        <AssociationConnector Association="OrderServiceDataModel.OrdersProducts" />
-        <AssociationConnector Association="OrderServiceDataModel.OrdersEmployees" />
-        <AssociationConnector Association="OrderServiceDataModel.ProductsSupplies" />
-        <AssociationConnector Association="OrderServiceDataModel.SuppliersSupplies" />
+      <Diagram DiagramId="5de4c82999dc4543ad63515c4a4a6dd9" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="OrderServiceDataModel.Employees" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderServiceDataModel.Orders" Width="1.5" PointX="2.5" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderServiceDataModel.Products" Width="1.5" PointX="5.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderServiceDataModel.Suppliers" Width="1.5" PointX="9.125" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderServiceDataModel.Supplies" Width="1.5" PointX="9.375" PointY="6.5" IsExpanded="true" />
+        <AssociationConnector Association="OrderServiceDataModel.Order_EmployeeID" ManuallyRouted="false" />
+        <AssociationConnector Association="OrderServiceDataModel.Order_ProductID" ManuallyRouted="false" />
+        <AssociationConnector Association="OrderServiceDataModel.Product_SupplieID" ManuallyRouted="false" />
+        <AssociationConnector Association="OrderServiceDataModel.Product_SupplierID" ManuallyRouted="false" />
+        <AssociationConnector Association="OrderServiceDataModel.Supplie_SupplierID" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

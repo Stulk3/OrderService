@@ -18,8 +18,10 @@ namespace OrderService.Models
         public System.DateTime PlacementDate { get; set; }
         public Nullable<System.DateTime> DoneDate { get; set; }
         public string ClientCode { get; set; }
+        public Nullable<int> EmployeeID { get; set; }
+        public Nullable<int> ProductID { get; set; }
     
-        public virtual Products Products { get; set; }
         public virtual Employees Employees { get; set; }
+        public virtual Products Products { get; set; }
     }
 }

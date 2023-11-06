@@ -17,7 +17,7 @@ namespace OrderService.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Products()
         {
-            this.Supplies = new HashSet<Supplies>();
+            this.Orders = new HashSet<Orders>();
         }
     
         public int Id { get; set; }
@@ -25,12 +25,15 @@ namespace OrderService.Models
         public string Description { get; set; }
         public string Type { get; set; }
         public Nullable<double> Weight { get; set; }
-        public string ExpirationDate { get; set; }
+        public Nullable<System.DateTime> ExpirationDate { get; set; }
         public Nullable<double> StorageTemperature { get; set; }
-        public Nullable<double> Price { get; set; }
+        public double Price { get; set; }
+        public Nullable<int> SupplieID { get; set; }
+        public Nullable<int> SupplierID { get; set; }
     
-        public virtual Orders Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Supplies> Supplies { get; set; }
+        public virtual ICollection<Orders> Orders { get; set; }
+        public virtual Supplies Supplies { get; set; }
+        public virtual Suppliers Suppliers { get; set; }
     }
 }

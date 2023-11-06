@@ -17,6 +17,7 @@ namespace OrderService.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Suppliers()
         {
+            this.Products = new HashSet<Products>();
             this.Supplies = new HashSet<Supplies>();
         }
     
@@ -30,6 +31,8 @@ namespace OrderService.Models
         public Nullable<double> Available { get; set; }
         public string Specials { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Products> Products { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Supplies> Supplies { get; set; }
     }

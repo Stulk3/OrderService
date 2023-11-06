@@ -13,10 +13,10 @@ namespace OrderService.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class OrderServiceDataEntities : DbContext
+    public partial class OrderServiceData : DbContext
     {
-        public OrderServiceDataEntities()
-            : base("name=OrderServiceDataEntities")
+        public OrderServiceData()
+            : base("name=OrderServiceData")
         {
         }
     

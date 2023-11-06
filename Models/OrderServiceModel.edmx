@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="Appointment" Type="nvarchar" MaxLength="50" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
@@ -19,29 +19,33 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PlacementDate" Type="date" Nullable="false" />
           <Property Name="DoneDate" Type="date" />
-          <Property Name="ClientCode" Type="nchar" MaxLength="10" />
+          <Property Name="ClientCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmployeeID" Type="int" />
+          <Property Name="ProductID" Type="int" />
         </EntityType>
         <EntityType Name="Products">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="Type" Type="nvarchar" MaxLength="50" />
           <Property Name="Weight" Type="float" />
-          <Property Name="ExpirationDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExpirationDate" Type="date" />
           <Property Name="StorageTemperature" Type="float" />
-          <Property Name="Price" Type="float" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="SupplieID" Type="int" />
+          <Property Name="SupplierID" Type="int" />
         </EntityType>
         <EntityType Name="Suppliers">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="50" />
           <Property Name="Manager" Type="nvarchar" MaxLength="50" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
@@ -56,14 +60,95 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="Date" Type="nchar" MaxLength="10" />
+          <Property Name="Date" Type="date" />
+          <Property Name="SupplierID" Type="int" />
         </EntityType>
+        <Association Name="Order_EmployeeID">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Order_ProductID">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Product_SupplieID">
+          <End Role="Supplies" Type="Self.Supplies" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplies">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="SupplieID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Product_SupplierID">
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Supplie_SupplierID">
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
+          <End Role="Supplies" Type="Self.Supplies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Supplies">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Хранилище OrderServiceDataModelContainer">
           <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supplies" EntityType="Self.Supplies" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="Order_EmployeeID" Association="Self.Order_EmployeeID">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="Order_ProductID" Association="Self.Order_ProductID">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="Product_SupplieID" Association="Self.Product_SupplieID">
+            <End Role="Supplies" EntitySet="Supplies" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="Product_SupplierID" Association="Self.Product_SupplierID">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="Supplie_SupplierID" Association="Self.Supplie_SupplierID">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="Supplies" EntitySet="Supplies" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -74,44 +159,49 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Appointment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Subordinates" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Orders" Relationship="OrderServiceDataModel.OrdersEmployees" FromRole="Employees" ToRole="Orders" />
+          <NavigationProperty Name="Orders" Relationship="Self.Order_EmployeeID" FromRole="Employees" ToRole="Orders" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PlacementDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="DoneDate" Type="DateTime" Precision="0" />
-          <Property Name="ClientCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Products" Relationship="OrderServiceDataModel.OrdersProducts" FromRole="Orders" ToRole="Products" />
-          <NavigationProperty Name="Employees" Relationship="OrderServiceDataModel.OrdersEmployees" FromRole="Orders" ToRole="Employees" />
+          <Property Name="ClientCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeID" Type="Int32" />
+          <Property Name="ProductID" Type="Int32" />
+          <NavigationProperty Name="Employees" Relationship="Self.Order_EmployeeID" FromRole="Orders" ToRole="Employees" />
+          <NavigationProperty Name="Products" Relationship="Self.Order_ProductID" FromRole="Orders" ToRole="Products" />
         </EntityType>
         <EntityType Name="Products">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Weight" Type="Double" />
-          <Property Name="ExpirationDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ExpirationDate" Type="DateTime" Precision="0" />
           <Property Name="StorageTemperature" Type="Double" />
-          <Property Name="Price" Type="Double" />
-          <NavigationProperty Name="Orders" Relationship="OrderServiceDataModel.OrdersProducts" FromRole="Products" ToRole="Orders" />
-          <NavigationProperty Name="Supplies" Relationship="OrderServiceDataModel.ProductsSupplies" FromRole="Products" ToRole="Supplies" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="SupplieID" Type="Int32" />
+          <Property Name="SupplierID" Type="Int32" />
+          <NavigationProperty Name="Orders" Relationship="Self.Order_ProductID" FromRole="Products" ToRole="Orders" />
+          <NavigationProperty Name="Supplies" Relationship="Self.Product_SupplieID" FromRole="Products" ToRole="Supplies" />
+          <NavigationProperty Name="Suppliers" Relationship="Self.Product_SupplierID" FromRole="Products" ToRole="Suppliers" />
         </EntityType>
         <EntityType Name="Suppliers">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Manager" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -120,80 +210,112 @@
           <Property Name="Discount" Type="Double" />
           <Property Name="Available" Type="Double" />
           <Property Name="Specials" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Supplies" Relationship="OrderServiceDataModel.SuppliersSupplies" FromRole="Suppliers" ToRole="Supplies" />
+          <NavigationProperty Name="Products" Relationship="Self.Product_SupplierID" FromRole="Suppliers" ToRole="Products" />
+          <NavigationProperty Name="Supplies" Relationship="Self.Supplie_SupplierID" FromRole="Suppliers" ToRole="Supplies" />
         </EntityType>
         <EntityType Name="Supplies">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Date" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Products" Relationship="OrderServiceDataModel.ProductsSupplies" FromRole="Supplies" ToRole="Products" />
-          <Property Name="ProductsId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Suppliers" Relationship="OrderServiceDataModel.SuppliersSupplies" FromRole="Supplies" ToRole="Suppliers" />
-          <Property Name="SuppliersId" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="SupplierID" Type="Int32" />
+          <NavigationProperty Name="Products" Relationship="Self.Product_SupplieID" FromRole="Supplies" ToRole="Products" />
+          <NavigationProperty Name="Suppliers" Relationship="Self.Supplie_SupplierID" FromRole="Supplies" ToRole="Suppliers" />
         </EntityType>
-        <EntityContainer Name="OrderServiceDataEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Employees" EntityType="Self.Employees" />
-          <EntitySet Name="Orders" EntityType="Self.Orders" />
-          <EntitySet Name="Products" EntityType="Self.Products" />
-          <EntitySet Name="Suppliers" EntityType="Self.Suppliers" />
-          <EntitySet Name="Supplies" EntityType="Self.Supplies" />
-          <AssociationSet Name="OrdersProducts" Association="OrderServiceDataModel.OrdersProducts">
-            <End Role="Orders" EntitySet="Orders" />
-            <End Role="Products" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="OrdersEmployees" Association="OrderServiceDataModel.OrdersEmployees">
-            <End Role="Orders" EntitySet="Orders" />
-            <End Role="Employees" EntitySet="Employees" />
-          </AssociationSet>
-          <AssociationSet Name="ProductsSupplies" Association="OrderServiceDataModel.ProductsSupplies">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="Supplies" EntitySet="Supplies" />
-          </AssociationSet>
-          <AssociationSet Name="SuppliersSupplies" Association="OrderServiceDataModel.SuppliersSupplies">
-            <End Role="Suppliers" EntitySet="Suppliers" />
-            <End Role="Supplies" EntitySet="Supplies" />
-          </AssociationSet>
-        </EntityContainer>
-        <Association Name="OrdersProducts">
-          <End Type="OrderServiceDataModel.Orders" Role="Orders" Multiplicity="1" />
-          <End Type="OrderServiceDataModel.Products" Role="Products" Multiplicity="1" />
+        <Association Name="Order_EmployeeID">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
-        <Association Name="OrdersEmployees">
-          <End Type="OrderServiceDataModel.Orders" Role="Orders" Multiplicity="1" />
-          <End Type="OrderServiceDataModel.Employees" Role="Employees" Multiplicity="1" />
-        </Association>
-        <Association Name="ProductsSupplies">
-          <End Type="OrderServiceDataModel.Products" Role="Products" Multiplicity="1" />
-          <End Type="OrderServiceDataModel.Supplies" Role="Supplies" Multiplicity="*" />
+        <Association Name="Order_ProductID">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Products">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Supplies">
-              <PropertyRef Name="ProductsId" />
+            <Dependent Role="Orders">
+              <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="SuppliersSupplies">
-          <End Type="OrderServiceDataModel.Suppliers" Role="Suppliers" Multiplicity="1" />
-          <End Type="OrderServiceDataModel.Supplies" Role="Supplies" Multiplicity="*" />
+        <Association Name="Product_SupplieID">
+          <End Role="Supplies" Type="Self.Supplies" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplies">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="SupplieID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Product_SupplierID">
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Supplie_SupplierID">
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
+          <End Role="Supplies" Type="Self.Supplies" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Suppliers">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Supplies">
-              <PropertyRef Name="SuppliersId" />
+              <PropertyRef Name="SupplierID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="OrderServiceData" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Employees" EntityType="Self.Employees" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" />
+          <EntitySet Name="Products" EntityType="Self.Products" />
+          <EntitySet Name="Suppliers" EntityType="Self.Suppliers" />
+          <EntitySet Name="Supplies" EntityType="Self.Supplies" />
+          <AssociationSet Name="Order_EmployeeID" Association="Self.Order_EmployeeID">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="Order_ProductID" Association="Self.Order_ProductID">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="Product_SupplieID" Association="Self.Product_SupplieID">
+            <End Role="Supplies" EntitySet="Supplies" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="Product_SupplierID" Association="Self.Product_SupplierID">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="Supplie_SupplierID" Association="Self.Supplie_SupplierID">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="Supplies" EntitySet="Supplies" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище OrderServiceDataModelContainer" CdmEntityContainer="OrderServiceDataEntities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище OrderServiceDataModelContainer" CdmEntityContainer="OrderServiceData">
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="OrderServiceDataModel.Employees">
               <MappingFragment StoreEntitySet="Employees">
@@ -212,6 +334,8 @@
                 <ScalarProperty Name="PlacementDate" ColumnName="PlacementDate" />
                 <ScalarProperty Name="DoneDate" ColumnName="DoneDate" />
                 <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -226,6 +350,8 @@
                 <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
                 <ScalarProperty Name="StorageTemperature" ColumnName="StorageTemperature" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="SupplieID" ColumnName="SupplieID" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -244,33 +370,12 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="OrdersProducts" TypeName="OrderServiceDataModel.OrdersProducts" StoreEntitySet="Orders">
-            <EndProperty Name="Products">
-              <ScalarProperty Name="Id" ColumnName="Id" />
-            </EndProperty>
-            <EndProperty Name="Orders">
-              <ScalarProperty Name="Id" ColumnName="Id" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="OrdersEmployees" TypeName="OrderServiceDataModel.OrdersEmployees" StoreEntitySet="Orders">
-            <EndProperty Name="Employees">
-              <ScalarProperty Name="Id" ColumnName="Id" />
-            </EndProperty>
-            <EndProperty Name="Orders">
-              <ScalarProperty Name="Id" ColumnName="Id" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="Supplies">
-            <EntityTypeMapping TypeName="IsTypeOf(OrderServiceDataModel.Supplies)">
+            <EntityTypeMapping TypeName="OrderServiceDataModel.Supplies">
               <MappingFragment StoreEntitySet="Supplies">
-                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-              <MappingFragment StoreEntitySet="Products">
-              <ScalarProperty Name="ProductsId" ColumnName="Id" />
-              </MappingFragment>
-              <MappingFragment StoreEntitySet="Suppliers">
-              <ScalarProperty Name="SuppliersId" ColumnName="Id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

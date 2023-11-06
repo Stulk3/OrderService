@@ -14,12 +14,19 @@ namespace OrderService.Models
     
     public partial class Employees
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Employees()
+        {
+            this.Orders = new HashSet<Orders>();
+        }
+    
         public int Id { get; set; }
         public string Name { get; set; }
         public string Appointment { get; set; }
         public string PhoneNumber { get; set; }
         public string Subordinates { get; set; }
     
-        public virtual Orders Orders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Orders> Orders { get; set; }
     }
 }
